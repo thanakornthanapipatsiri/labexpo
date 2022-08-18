@@ -6,8 +6,10 @@ import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { ImageBackground } from 'react-native';
 
 const availableZipItems = [
+    
     { place: 'Hatyai', code: '90110' },
     { place: 'Trang', code: '92000' },
     { place: 'Chiangmai', code: '50000' },
@@ -15,13 +17,22 @@ const availableZipItems = [
     { place: 'Chonburi', code: '20000' },
    ]
 
+
+
+
 const ZipItem = ({place, code, navigation}) => (
-    <TouchableHighlight onPress={() => navigation.navigate('Weather', { zipCode: code})}>
-        <View>
-            <Text>{place}</Text>
-            <Text >{code}</Text>
-        </View>
-    </TouchableHighlight>
+    
+        <TouchableHighlight onPress={() => navigation.navigate('Weather', { zipCode: code})}>
+            <View>
+                <ImageBackground source={require('../sky.jpg')} >
+                <Text >--------------------------------------------------------------------------------------------------</Text>
+                <Text>                                            {place}</Text>
+                <Text> </Text>
+                <Text >                                           {code}</Text>
+                <Text >--------------------------------------------------------------------------------------------------</Text>
+                </ImageBackground>
+            </View>
+        </TouchableHighlight>
 )
 
 const _keyExtractor = item => item.code
@@ -29,6 +40,7 @@ const _keyExtractor = item => item.code
 export default function ZipCodeScreen(){
     const navigation = useNavigation()
     return (
+        
         <View>
             <FlatList
                 data={availableZipItems}
@@ -43,8 +55,9 @@ export default function ZipCodeScreen(){
 const styles = StyleSheet.create({
     zipItem: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent:'space-between'
+        flexDirection: 'column',
+        justifyContent:'center',
+        alignItems:'center'
     },
     zipPlace: {
         flex :1,

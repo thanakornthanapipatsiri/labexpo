@@ -7,9 +7,12 @@ import { useEffect } from 'react';
 
 export default function Weather(props) {
     const [forecastInfo, setForecastInfo] = useState({
+        name : '-',
         main: '-',
         description: '-',
-        temp: 0
+        temp: 0 ,
+        pressure : 0,
+        humidity: 0
     }) 
 
     useEffect(() => {
@@ -19,9 +22,14 @@ export default function Weather(props) {
                 .then((response) => response.json())
                 .then((json) => {
                     setForecastInfo({
+                        name: json.name,
                         main: json.weather[0].main,
                         description: json.weather[0].description,
-                        temp: json.main.temp});
+                        temp: json.main.temp,
+                        pressure: json.main.pressure,
+                        humidity: json.main.humidity });
+                        
+
                     })
             .catch((error) => {
                 console.warn(error);
@@ -33,6 +41,8 @@ export default function Weather(props) {
         <ImageBackground source={require('../sky.jpg')} style={styles.backdrop}>
             <Text>Zipcode</Text>
             <Text>{props.zipCode}</Text>
+            <Text>  </Text>
+            <Text>  </Text>
             <Forecast {...forecastInfo} />
         </ImageBackground>
     )
